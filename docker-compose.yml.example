@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  redirector:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - ./redirects.json:/app/redirects.json

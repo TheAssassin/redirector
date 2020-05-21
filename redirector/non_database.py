@@ -124,9 +124,9 @@ class FlaskNonDatabase:
     def init_app(self, app: Flask):
         self._non_db = NonDatabase()
 
-        app.config.setdefault("NON_DATABASE_PATH", None)
+        app.config.setdefault("REDIRECTIONS_MAP_PATH", None)
 
-        path = app.config["NON_DATABASE_PATH"]
+        path = app.config["REDIRECTIONS_MAP_PATH"]
 
         if path is None:
             try:

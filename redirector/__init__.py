@@ -1,3 +1,4 @@
+import os
 import sys
 
 from flask import Flask
@@ -26,8 +27,16 @@ def create_app(config: dict = None) -> Flask:
 
     app = Flask("redirector")
 
+    # default value
+    app.config.setdefault("STATIC_REDIRECTIONS_MAX_AGE", "120")
+
     if config is not None:
         app.config.update(config)
+
+    # environment variables support
+    for env_var in ["REDIRECTIONS_MAP_PATH", "STATIC_REDIRECTIONS_MAX_AGE"]:
+        if env_var in os.environ:
+            app.config[env_var] = os.environ[env_var]
 
     # initialize extensions like the db
     try:

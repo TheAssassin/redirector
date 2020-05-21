@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, make_response
+from flask import Blueprint, redirect, make_response, current_app
 
 from . import non_db_ext
 
@@ -32,7 +32,20 @@ def shortener(name: str):
     except KeyError:
         return "not found", 404
 
-    # return 301 with a small cache timeout value like many other shorteners
-    response = redirect(url, 301)
-    response.headers["Cache-Control"] = "max-age=120"
+    # depending on the configuration, we either return a "permanent" redirect with a small cache timeout, or a
+    # "temporary" one
+    max_age = current_app.config["STATIC_REDIRECTIONS_MAX_AGE"]
+
+    if not max_age:
+        max_age = 0
+
+    # make sure it's an int
+    max_age = int(max_age)
+
+    response = redirect(url, 302)
+
+    if max_age > 0:
+        response.status_code = 301
+        response.headers["Cache-Control"] = "max-age={}".format(max_age)
+
     return response

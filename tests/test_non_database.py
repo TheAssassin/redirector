@@ -118,7 +118,6 @@ def test_name_collision_name():
         NonDatabase(data)
 
 
-
 def test_lookups():
     data = {
         "https://bla.com": ["bla", "bla1"],

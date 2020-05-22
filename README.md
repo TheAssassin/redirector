@@ -1,6 +1,7 @@
 # redirector
 
-![](https://travis-ci.org/TheAssassin/redirector.svg?branch=master&status=passed)
+![Traivs status](https://travis-ci.org/TheAssassin/redirector.svg?branch=master&status=passed)
+[![Coverage Status](https://opencov.assassinate-you.net/projects/4/badge.svg)](https://opencov.assassinate-you.net/projects/4)
 
 This project provides a simple redirection web service app, with self-hosting in mind. It is built
 using the awesome [Flask micro-framework](https://flask.palletsprojects.com/).

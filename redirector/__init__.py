@@ -1,5 +1,4 @@
 import os
-import sys
 
 from flask import Flask
 
@@ -11,7 +10,7 @@ non_db_ext = FlaskNonDatabase()
 
 
 # load views
-from .views import bp
+from .views import bp  # noqa: E402
 
 
 def create_app(config: dict = None) -> Flask:

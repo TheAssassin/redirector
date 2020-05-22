@@ -145,5 +145,3 @@ class FlaskNonDatabase:
             raise RuntimeError("extension has not been initialized yet")
 
         return self._non_db
-
-

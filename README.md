@@ -1,5 +1,7 @@
 # redirector
 
+![](https://travis-ci.org/TheAssassin/redirector.svg?branch=master&status=passed)
+
 This project provides a simple redirection web service app, with self-hosting in mind. It is built
 using the awesome [Flask micro-framework](https://flask.palletsprojects.com/).
 

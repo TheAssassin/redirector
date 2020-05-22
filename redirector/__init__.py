@@ -38,11 +38,8 @@ def create_app(config: dict = None) -> Flask:
         if env_var in os.environ:
             app.config[env_var] = os.environ[env_var]
 
-    # initialize extensions like the db
-    try:
-        non_db_ext.init_app(app)
-    except Warning as w:
-        print("Warning:", w, file=sys.stderr)
+    # initialize extensions like the non-db
+    non_db_ext.init_app(app)
 
     # register routes
     app.register_blueprint(bp)

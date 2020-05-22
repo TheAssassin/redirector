@@ -1,4 +1,5 @@
 import json
+import warnings
 from typing import Union, List
 
 from flask import Flask
@@ -133,8 +134,8 @@ class FlaskNonDatabase:
                 self._non_db.load_data("redirects.json")
 
             except FileNotFoundError:
-                raise RuntimeWarning("no redirections database path specified and redirects.json not found, "
-                                     "no static redirections available")
+                warnings.warn("no redirections database path specified and redirects.json not found, "
+                              "no static redirections available")
         else:
             self._non_db.load_data(path)
 

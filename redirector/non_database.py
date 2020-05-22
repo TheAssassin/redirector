@@ -142,7 +142,7 @@ class FlaskNonDatabase:
     @property
     def non_db(self):
         if self._non_db is None:
-            raise ValueError("extension has not been initialized yet")
+            raise RuntimeError("extension has not been initialized yet")
 
         return self._non_db
 

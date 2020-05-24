@@ -108,6 +108,12 @@ The feature can be disabled as well. In that case, a `302 Found` header is used.
 A `302 Found` status is returned for dynamic redirections. Here, the URL is likely to change more
 regularly, therefore a new request should be made by the client every time the value is used.
 
+### HTTP API
+
+`/api/urls.json` returns a JSON representation of all URLs and the short names assigned to them.
+The format is equivalent to the static routes file.
+For dynamic routes, the currently cached value is shown (if available), otherwise `null` is returned.
+
 
 ## Configuration
 

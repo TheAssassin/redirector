@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, make_response, current_app
+from werkzeug.exceptions import NotFound
 
 from . import non_db_ext
 
@@ -30,7 +31,7 @@ def shortener(name: str):
         url = non_db_ext.non_db.lookup_url_for_name(name)
 
     except KeyError:
-        return "not found", 404
+        raise NotFound
 
     # depending on the configuration, we either return a "permanent" redirect with a small cache timeout, or a
     # "temporary" one

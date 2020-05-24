@@ -49,3 +49,10 @@ def test_shortener_existing_name_custom_cache(test_data_client_custom_cache, nam
     assert response.status_code == 301
     assert response.headers["cache-control"] == "max-age={}".format(test_data_client_custom_cache._max_age)
     assert response.headers["location"] == "https://test.test"
+
+
+@pytest.mark.parametrize("name", ["api", "api123", "api/", "api/123"])
+def test_shortener_name_exceptions(test_data_client, name):
+    response = test_data_client.get("/{}".format(name))
+
+    assert response.status_code == 404

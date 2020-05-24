@@ -27,6 +27,12 @@ def shortener(name: str):
     The main redirection handling view. It does not permit ``/`` values in names as of yet.
     """
 
+    # The /api prefix is reserved, so if no other view handles a request like this,
+    # we need to reply here accordingly
+    # TODO: decide whether to decline all "/api.*" requests or only "/api"
+    if name.startswith("api"):
+        raise NotFound
+
     try:
         url = non_db_ext.non_db.lookup_url_for_name(name)
 

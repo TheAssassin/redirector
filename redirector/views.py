@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, make_response, current_app
+from flask import Blueprint, redirect, make_response, current_app, jsonify
 from werkzeug.exceptions import NotFound
 
 from . import non_db_ext
@@ -18,6 +18,11 @@ def index():
     response.mimetype = "text/plain"
 
     return response
+
+
+@bp.route("/api/urls.json")
+def api_urls():
+    return jsonify(non_db_ext.non_db.urls_to_names)
 
 
 # TODO: once / are allowed for names, change this to /<name:path>

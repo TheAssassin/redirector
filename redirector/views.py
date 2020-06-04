@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, redirect, make_response, current_app, jsonify, render_template
+from flask import Blueprint, redirect, current_app, jsonify, render_template
 from werkzeug.exceptions import NotFound
 
 from . import non_db_ext

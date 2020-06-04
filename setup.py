@@ -9,5 +9,7 @@ setup(
     tests_require=[
         "tox",
         "pytest",
+        "lxml",
+        "cssselect",
     ]
 )

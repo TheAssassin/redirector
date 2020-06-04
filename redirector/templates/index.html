@@ -21,7 +21,7 @@
               </div>
               <div class="column">
                   {% for short_name in short_names %}
-                  <a href="{{ url_for('redirector.shortener', name='abc') }}"><code>{{ short_name }}</code></a>
+                  <a href="{{ url_for('redirector.shortener', name=short_name) }}"><code>{{ short_name }}</code></a>
                   {% endfor %}
               </div>
           </div>

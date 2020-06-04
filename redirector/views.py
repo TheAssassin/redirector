@@ -1,23 +1,22 @@
-from flask import Blueprint, redirect, make_response, current_app, jsonify
+import os
+
+from flask import Blueprint, redirect, make_response, current_app, jsonify, render_template
 from werkzeug.exceptions import NotFound
 
 from . import non_db_ext
 
-bp = Blueprint("redirector", __name__)
+this_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+static_folder = os.path.join(this_dir, "static")
+template_folder = os.path.join(this_dir, "templates")
+
+bp = Blueprint("redirector", __name__, static_folder=static_folder, template_folder=template_folder)
 
 # TODO: JSON API for redirections
 
 
 @bp.route("/")
 def index():
-    text = "\n".join(
-        ("{}: {}".format(k, v) for k, v in non_db_ext.non_db.urls_to_names.items())
-    )
-
-    response = make_response(text, 200)
-    response.mimetype = "text/plain"
-
-    return response
+    return render_template("index.html", non_db=non_db_ext.non_db)
 
 
 @bp.route("/api/urls.json")

@@ -1,0 +1,32 @@
+<!DOCTYPE html5>
+<html>
+
+<head>
+    <title>Redirector</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/milligram.css') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="container" style="margin-top: 30px;">
+        <h1>Overview about available redirections</h1>
+
+        {% for target_url, short_names in non_db.urls_to_names.items() %}
+         <div class="row" style="margin-bottom: 6px;">
+              <div class="column">
+                  <a href="{{ target_url }}">{{ target_url }}</a>
+              </div>
+              <div class="column">
+                  {% for short_name in short_names %}
+                  <a href="{{ url_for('redirector.shortener', name='abc') }}"><code>{{ short_name }}</code></a>
+                  {% endfor %}
+              </div>
+          </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

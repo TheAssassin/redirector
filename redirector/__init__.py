@@ -35,6 +35,12 @@ def create_app(config: dict = None) -> Flask:
     # default value
     app.config.setdefault("STATIC_REDIRECTIONS_MAX_AGE", "120")
 
+    # optional: load config.py from current working directory
+    try:
+        app.config.from_pyfile("config.py")
+    except FileNotFoundError:
+        print("config.py not found, skipping", file=sys.stderr)
+
     if config is not None:
         app.config.update(config)
 

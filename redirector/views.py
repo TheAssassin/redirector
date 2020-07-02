@@ -11,12 +11,14 @@ template_folder = os.path.join(this_dir, "templates")
 
 bp = Blueprint("redirector", __name__, static_folder=static_folder, template_folder=template_folder)
 
-# TODO: JSON API for redirections
+
+def get_static_redirections() -> Dict[str, List[str]]:
+    return non_db_ext.non_db.urls_to_names
 
 
 @bp.route("/")
 def index():
-    return render_template("index.html", non_db=non_db_ext.non_db)
+    return render_template("index.html", static_redirections=get_static_redirections())
 
 
 @bp.route("/api/urls.json")

@@ -14,7 +14,8 @@
     <div class="container" style="margin-top: 30px;" id="static-redirections">
         <h1>Overview about available redirections</h1>
 
-        {% for target_url, short_names in non_db.urls_to_names.items() %}
+        <h2>Static redirections</h2>
+        {% for target_url, short_names in static_redirections.items() %}
          <div class="row" style="margin-bottom: 6px;">
               <div class="column">
                   <a href="{{ target_url }}">{{ target_url }}</a>

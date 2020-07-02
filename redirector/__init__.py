@@ -32,8 +32,9 @@ def create_app(config: dict = None) -> Flask:
 
     app = Flask("redirector")
 
-    # default value
     app.config.setdefault("STATIC_REDIRECTIONS_MAX_AGE", "120")
+
+    app.config.setdefault("CACHE_TYPE", "simple")
 
     # optional: load config.py from current working directory
     try:

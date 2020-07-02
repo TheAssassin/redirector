@@ -3,8 +3,6 @@ from setuptools import find_packages, setup
 tests_require=[
     "tox",
     "pytest",
-    "lxml",
-    "cssselect",
 ]
 
 
@@ -14,6 +12,9 @@ setup(
     install_requires=[
         "Flask>=1.1",
         "Flask-Caching",
+        "requests",
+        "cssselect",
+        "lxml",
     ],
     tests_require=tests_require,
     extras_require={

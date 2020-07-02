@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_caching import Cache
 
 from .non_database import FlaskNonDatabase
 
@@ -8,9 +9,9 @@ from .non_database import FlaskNonDatabase
 # note for self: import everything that uses the non-database _after_ this line
 non_db_ext = FlaskNonDatabase()
 
-
-# load views
-from .views import bp  # noqa: E402
+# some responses should be cached for performance reasons
+# we use the simple but extensible Flask-Caching extension for this
+cache = Cache()
 
 
 def create_app(config: dict = None) -> Flask:
@@ -39,6 +40,7 @@ def create_app(config: dict = None) -> Flask:
 
     # initialize extensions like the non-db
     non_db_ext.init_app(app)
+    cache.init_app(app)
 
     # register routes
     app.register_blueprint(bp)

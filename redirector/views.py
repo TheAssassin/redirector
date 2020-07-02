@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, redirect, current_app, jsonify, render_template
 from werkzeug.exceptions import NotFound
 
-from . import non_db_ext
+from . import non_db_ext, cache
 
 this_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 static_folder = os.path.join(this_dir, "static")
@@ -22,11 +22,14 @@ def index():
 
 
 @bp.route("/api/urls.json")
+@cache.cached(timeout=50)
 def api_urls():
     return jsonify(non_db_ext.non_db.urls_to_names)
 
 
 # TODO: once / are allowed for names, change this to /<name:path>
+# TODO: there is no real point in caching this endpoint for static routes, since the lookups in the NonDatabase are
+# likely faster than working with a cache
 @bp.route("/<name>")
 def shortener(name: str):
     """

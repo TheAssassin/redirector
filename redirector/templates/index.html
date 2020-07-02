@@ -27,6 +27,15 @@
               </div>
           </div>
         {% endfor %}
+
+        <h2>Dynamic redirections</h2>
+        {% for route, url_for_route in dynamic_redirections %}
+         <div class="row" style="margin-bottom: 6px;">
+              <div class="column">
+                  <a href="{{ url_for_route }}"><code>{{ route }}</code></a>
+              </div>
+          </div>
+        {% endfor %}
     </div>
 </body>
 

@@ -1,4 +1,6 @@
+import importlib
 import os
+import sys
 
 from flask import Flask
 from flask_caching import Cache
@@ -12,6 +14,9 @@ non_db_ext = FlaskNonDatabase()
 # some responses should be cached for performance reasons
 # we use the simple but extensible Flask-Caching extension for this
 cache = Cache()
+
+# make decorators easy to import
+from .dynamic import dynamic_redirect
 
 
 def create_app(config: dict = None) -> Flask:
@@ -34,15 +39,27 @@ def create_app(config: dict = None) -> Flask:
         app.config.update(config)
 
     # environment variables support
-    for env_var in ["REDIRECTIONS_MAP_PATH", "STATIC_REDIRECTIONS_MAX_AGE"]:
+    for env_var in ["REDIRECTIONS_MAP_PATH", "STATIC_REDIRECTIONS_MAX_AGE", "DYNAMIC_REDIRECTS_MODULES"]:
         if env_var in os.environ:
             app.config[env_var] = os.environ[env_var]
+
+    try:
+        for module_name in app.config["DYNAMIC_REDIRECTS_MODULES"].split(":"):
+            importlib.import_module(module_name)
+
+    except KeyError:
+        pass
 
     # initialize extensions like the non-db
     non_db_ext.init_app(app)
     cache.init_app(app)
 
+    # importing here to avoid annoying cyclic imports
+    from .views import bp  # noqa: E402
+    from .dynamic import dynamic_redirects_bp
+
     # register routes
     app.register_blueprint(bp)
+    app.register_blueprint(dynamic_redirects_bp)
 
     return app

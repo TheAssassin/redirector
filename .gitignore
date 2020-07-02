@@ -147,3 +147,9 @@ cython_debug/
 
 # IDE
 .idea/
+
+# config file
+config*.py
+
+# possible redirects modules (also used for testing)
+*redirect*.py

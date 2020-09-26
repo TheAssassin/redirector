@@ -1,4 +1,7 @@
-FROM python:3.7-alpine
+FROM python:3-alpine
+
+MAINTAINER "TheAssassin <theassassin@user.noreply.github.com>"
+LABEL org.opencontainers.image.source="https://github.com/TheAssassin/blueflare"
 
 COPY redirector/ /app/redirector/
 COPY setup.py /app/

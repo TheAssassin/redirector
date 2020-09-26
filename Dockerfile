@@ -10,7 +10,8 @@ WORKDIR /app
 SHELL ["sh", "-x", "-c"]
 
 # installing in development mode avoids duplicate files in the image
-RUN pip install -U pip && \
+RUN apk add --no-cache libxml2-dev libxslt-dev gcc musl-dev && \
+    python -m ensurepip && \
     pip install -e . && \
     pip install gunicorn
 
